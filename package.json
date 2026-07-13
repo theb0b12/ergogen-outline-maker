@@ -1,0 +1,13 @@
+{
+  "name": "ergogen-outline-tool",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ergogen": "^4.0.0",
+    "express": "^4.18.2",
+    "js-yaml": "^4.1.0"
+  }
+}

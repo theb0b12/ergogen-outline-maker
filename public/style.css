@@ -1,0 +1,237 @@
+/* --- 90s WORKSTATION THEME, why... idk --- */
+:root {
+    --bg-app: #000000;
+    --bg-panel: #c0c0c0;
+    --bg-element: #ffffff;
+    --border-dark: #000000;
+    --border-light: #ffffff;
+    --text-main: #000000;
+    --font-system: 'Courier New', Courier, monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: none !important;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    font-family: var(--font-system);
+    height: 100vh;
+    overflow: hidden;
+    font-size: 11px;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: 100vh;
+    width: 100vw;
+    border: 2px solid #808080;
+}
+
+.sidebar {
+    background-color: var(--bg-panel);
+    border-right: 2px solid var(--border-dark);
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    gap: 6px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000080;
+    color: #ffffff;
+    padding: 4px 6px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.logo h1 {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-height: 0; /* Critical for preventing flex items from overflowing */
+}
+
+.inline-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+textarea {
+    background-color: var(--bg-element);
+    border: 2px inset #808080;
+    border-radius: 0px;
+    color: var(--text-main);
+    font-family: var(--font-system);
+    font-size: 11px;
+    line-height: 1.2;
+    padding: 4px;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #000000;
+}
+
+.panel-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+    border-top: 1px solid #808080;
+    flex-shrink: 0;
+}
+
+.control-group {
+    background-color: var(--bg-panel);
+    border: 1px solid #808080;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-main);
+    font-size: 10px;
+}
+
+input[type="range"] {
+    appearance: auto;
+    width: 100%;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+}
+
+.btn {
+    background-color: var(--bg-panel);
+    border: 2px outset #ffffff;
+    border-radius: 0px;
+    color: var(--text-main);
+    cursor: default;
+    font-family: var(--font-system);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    text-align: center;
+}
+
+.btn:active {
+    border-style: inset;
+}
+
+.btn-primary {
+    background-color: var(--bg-panel);
+}
+
+.btn-text {
+    background: transparent;
+    border: none;
+    color: #0000ff;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.btn-danger-subtle {
+    color: #800000;
+}
+
+.status-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.status-bar {
+    font-family: var(--font-system);
+    font-size: 10px;
+    color: var(--text-main);
+    background-color: var(--bg-element);
+    border: 2px inset #808080;
+    padding: 2px 4px;
+}
+
+.canvas-workspace {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #002b36;
+}
+
+#canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.hint-container {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.btn-icon {
+    background-color: var(--bg-panel);
+    border: 2px outset #ffffff;
+    width: 22px;
+    height: 22px;
+    font-family: monospace;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-icon:active {
+    border-style: inset;
+}
+
+.canvas-hint {
+    background-color: #c0c0c0;
+    border: 2px outset #ffffff;
+    padding: 4px 8px;
+    display: flex;
+    gap: 12px;
+    font-size: 10px;
+    color: #000000;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.canvas-hint strong {
+    color: #000000;
+    font-weight: bold;
+}

@@ -11,13 +11,12 @@ app.post('/api/process', async (req, res) => {
     try {
         const config = yaml.load(req.body.yaml);
         
-        // Pass the config to the official Ergogen engine!
         const result = await ergogen.process(config, true, () => {});
         
         // Ergogen computes EVERYTHING for us. We just need the points.
         res.json({
             points: result.points,
-            units: result.units // Evaluated units (u, kx, ky, px, py)
+            units: result.units
         });
     } catch (error) {
         console.error("Ergogen error:", error);

@@ -2,53 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ergogen Local Outline Tool</title>
-    <style>
-        /* Exact same CSS as the previous iteration */
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: sans-serif; background: #121212; color: #e0e0e0; height: 100vh; overflow: hidden; display: flex; }
-        .sidebar { width: 380px; display: flex; flex-direction: column; background: #1a1a1a; padding: 15px; gap: 15px; z-index: 10; }
-        #sidebar-left { border-right: 1px solid #333; }
-        #sidebar-right { border-left: 1px solid #333; }
-        h2 { margin: 0; font-size: 1.1rem; color: #fff; }
-        p { margin: 0; font-size: 0.85rem; color: #aaa; }
-        #canvas-container { flex: 1; position: relative; background: #111; overflow: hidden; }
-        canvas { display: block; width: 100%; height: 100%; cursor: grab; }
-        canvas:active { cursor: grabbing; }
-        .button-group { display: flex; gap: 10px; }
-        .btn { flex: 1; padding: 10px; background: #2d2d2d; color: #fff; border: 1px solid #444; border-radius: 4px; cursor: pointer; }
-        .btn:hover { background: #3d3d3d; }
-        .btn-primary { background: #007aff; border-color: #0056b3; }
-        textarea { flex: 1; width: 100%; background: #0a0a0a; color: #a5d6a7; border: 1px solid #333; border-radius: 4px; padding: 12px; font-family: monospace; font-size: 12px; resize: none; outline: none; }
-        .error-log { color: #ff5555; font-size: 12px; height: 40px; overflow-y: auto; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergogen Outline Studio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sidebar" id="sidebar-left">
-        <h2>1. Ergogen Config</h2>
-        <p>Paste your full YAML here. The local Node server will process it.</p>
-        <div class="panel">
-            <h3>Settings</h3>
-            <label>Fillet Radius (mm): <span id="fillet-val">2</span></label>
-            <input type="range" id="fillet-slider" min="0" max="5" step="0.5" value="2" style="width: 100%;">
-        </div>
-        <textarea id="yaml-input"></textarea>
-        <div id="error-log" class="error-log"></div>
-        <button id="btn-render" class="btn btn-primary">Render via Ergogen</button>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="window-title">OUTLINE_STUDIO.EXE</span>
+                <button id="btnRenderBase" class="btn btn-primary">RUN</button>
+            </div>
+
+            <!-- Base YAML -->
+            <div class="panel-section flex-grow">
+                <textarea id="inputYAML" spellcheck="false" placeholder="Paste Ergogen YAML..."></textarea>
+            </div>
+
+            <!-- Output YAML-->
+            <div class="panel-section flex-grow">
+                <div class="inline-toolbar">
+                    <button id="btnCopy" class="btn btn-text">COPY</button>
+                </div>
+                <textarea id="outputYAML" spellcheck="false" readonly></textarea>
+            </div>
+
+            <!-- Controls Footer -->
+            <div class="panel-footer">
+                <div class="control-group">
+                    <div class="label-row">
+                        <span>FILLET</span>
+                        <span id="filletValDisplay">0</span>
+                    </div>
+                    <input type="range" id="filletSlider" min="0" max="10" step="0.5" value="0">
+                </div>
+                <div class="action-buttons">
+                    <button id="btnUndo" class="btn">UNDO</button>
+                    <button id="btnClear" class="btn btn-danger-subtle">CLEAR</button>
+                </div>
+                
+                <!-- Error Log hidden by default, toggled via button -->
+                <div class="status-container">
+                    <button id="btnToggleLog" class="btn btn-text">[LOG: OFF]</button>
+                    <div id="errorLog" class="status-bar" style="display: none;">READY</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="canvas-workspace">
+            <canvas id="canvas"></canvas>
+            
+            <!-- Hideable Hint Icon -->
+            <div class="hint-container">
+                <button id="btnToggleHints" class="btn-icon">?</button>
+                <div id="canvasHintBox" class="canvas-hint" style="display: none;">
+                    <span>CLICK: Add Vertex</span>
+                    <span>SHIFT+CLICK: Arc</span>
+                    <span>DRAG: Move</span>
+                    <span>SPACE+DRAG: Pan</span>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <div id="canvas-container">
-        <canvas id="canvas"></canvas>
-    </div>
-    
-    <div class="sidebar" id="sidebar-right">
-        <h2>2. Outline Output</h2>
-        <div class="button-group">
-            <button id="btn-undo" class="btn">Undo Last</button>
-            <button id="btn-clear" class="btn">Clear All</button>
-        </div>
-        <textarea id="yaml-output" readonly placeholder="Output points..."></textarea>
-    </div>
     <script src="app.js"></script>
+    <script>
+        // Simple UI toggles for hidden elements, why not combine it in app.js idk add it to the TODO
+        document.getElementById('btnToggleHints').addEventListener('click', () => {
+            const box = document.getElementById('canvasHintBox');
+            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+        });
+
+        document.getElementById('btnToggleLog').addEventListener('click', () => {
+            const log = document.getElementById('errorLog');
+            const btn = document.getElementById('btnToggleLog');
+            if (log.style.display === 'none') {
+                log.style.display = 'block';
+                btn.innerText = '[LOG: ON]';
+            } else {
+                log.style.display = 'none';
+                btn.innerText = '[LOG: OFF]';
+            }
+        });
+    </script>
 </body>
 </html>

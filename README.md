@@ -7,4 +7,13 @@ btw this is half AI VIBECODED SLOP, read the top of app.js if you want to know m
 - arcs
 - lines
 - semi working validation so it does not yell at you when you try to use it.
-- windows xp because why not
+- windows xp because why not 
+
+
+
+---
+### setup
+I kind of forget, but it runs with node npm and there is a server.js and app.js. 
+1. `npm install` 
+or maybe don't because it is legit a virus every week
+2. `npm start`
